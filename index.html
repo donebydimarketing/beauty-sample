@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yunari Concept</title>
+<meta name="description" content="Konzeptentwurf für yunari.ch. Koreanische Hautpflege, Versand aus der Schweiz.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@300;500;700&display=swap">
+
+<style>
+/* Layout concept: a single vertical column of ink on paper, interrupted once by a
+   horizontal plane of product cards that rotates through 3D space as you scroll. */
+:root{
+  --paper:#fbfaf8;
+  --ink:#0d0d0c;
+  --ash:#6f6d69;
+  --veil:#e6e3dd;
+  --deep:#ffffff;
+  --shadow:rgba(13,13,12,.10);
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --han:"Noto Serif KR",Georgia,serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0c0c0b; --ink:#f3f1ec; --ash:#8e8b85; --veil:#232321;
+    --deep:#161614; --shadow:rgba(0,0,0,.55); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0c0c0b; --ink:#f3f1ec; --ash:#8e8b85; --veil:#232321;
+  --deep:#161614; --shadow:rgba(0,0,0,.55); color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+img{max-width:100%}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--display); font-weight:400; font-size:14px;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+.wrap{
+  max-width:1180px; margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+.eyebrow{
+  font-size:10px; font-weight:500; letter-spacing:.34em; text-transform:uppercase;
+  color:var(--ash);
+}
+.rule{height:1px; background:var(--veil); border:0; margin:0}
+
+/* ---------- masthead ---------- */
+.mast{
+  display:flex; align-items:baseline; justify-content:space-between;
+  gap:16px; flex-wrap:wrap; padding-block:22px 0;
+}
+.mark{font-family:var(--han); font-weight:500; font-size:19px; letter-spacing:.06em}
+.mast nav{display:flex; gap:22px; flex-wrap:wrap}
+.mast nav span{font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--ash)}
+
+/* ---------- hero ---------- */
+.hero{padding-block:clamp(44px,9vw,104px) clamp(40px,7vw,80px)}
+.hero-han{
+  font-family:var(--han); font-weight:300;
+  font-size:clamp(66px,19vw,204px); line-height:.82;
+  letter-spacing:-.02em; margin:0;
+}
+.hero-sub{
+  display:flex; justify-content:space-between; align-items:flex-end;
+  gap:28px; flex-wrap:wrap; margin-top:clamp(22px,4vw,40px);
+}
+.hero-lede{
+  font-size:clamp(17px,2.1vw,23px); font-weight:300; line-height:1.5;
+  max-width:33ch; margin:0; text-wrap:balance;
+}
+.hero-meta{display:flex; gap:clamp(20px,4vw,52px); flex-wrap:wrap}
+.hero-meta div{min-width:0}
+.hero-meta b{display:block; font-size:clamp(22px,3vw,34px); font-weight:300; font-variant-numeric:tabular-nums}
+.hero-meta span{display:block; font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--ash); margin-top:5px}
+
+.cue{
+  display:flex; align-items:center; gap:11px;
+  font-size:10px; letter-spacing:.26em; text-transform:uppercase; color:var(--ash);
+  padding-block:26px 0;
+}
+.cue i{display:block; width:46px; height:1px; background:var(--ash); transform-origin:left;
+  animation:slide 2.6s ease-in-out infinite}
+@keyframes slide{0%,100%{transform:scaleX(.3)}50%{transform:scaleX(1)}}
+
+/* ---------- 3D stage ---------- */
+.scroller{position:relative; height:420vh}
+.stage{
+  position:sticky; top:0; height:100vh; min-height:540px;
+  display:grid; place-items:center; overflow:hidden;
+  perspective:1150px; perspective-origin:50% 48%;
+}
+.stage-label{
+  position:absolute; top:clamp(22px,7vh,56px); left:0; right:0;
+  text-align:center; z-index:3; pointer-events:none;
+}
+.stage-label h2{
+  font-family:var(--han); font-weight:300;
+  font-size:clamp(28px,5.4vw,62px); margin:8px 0 0; line-height:1.05;
+}
+.track{position:absolute; inset:0; transform-style:preserve-3d}
+.card{
+  position:absolute; top:50%; left:50%;
+  width:min(250px,62vw); margin:-170px 0 0 calc(min(250px,62vw) / -2);
+  background:var(--deep); border:1px solid var(--veil);
+  box-shadow:0 26px 60px -22px var(--shadow);
+  padding:20px 20px 22px; transform-style:preserve-3d; will-change:transform;
+}
+.card .no{font-size:10px; letter-spacing:.22em; color:var(--ash); font-variant-numeric:tabular-nums}
+.card .swatch{
+  height:132px; margin:14px 0 16px; border:1px solid var(--veil);
+  background:repeating-linear-gradient(135deg,transparent 0 9px,var(--veil) 9px 10px);
+  display:grid; place-items:center;
+}
+.card .swatch em{font-family:var(--han); font-style:normal; font-size:30px; font-weight:300; opacity:.5}
+.card h3{font-size:14px; font-weight:500; line-height:1.3; margin:0 0 4px; letter-spacing:-.01em}
+.card .brand{font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--ash)}
+.card .price{display:flex; align-items:baseline; gap:9px; margin-top:13px; font-variant-numeric:tabular-nums}
+.card .price b{font-size:17px; font-weight:500}
+.card .price s{font-size:12px; color:var(--ash)}
+
+/* ---------- plain sections ---------- */
+section.band{padding-block:clamp(62px,10vw,120px)}
+.kicker{display:flex; align-items:baseline; gap:16px; margin-bottom:clamp(26px,4vw,46px); flex-wrap:wrap}
+.kicker h2{font-size:clamp(25px,4vw,44px); font-weight:300; letter-spacing:-.02em; margin:0; text-wrap:balance}
+
+.grid{display:grid; gap:1px; background:var(--veil); border:1px solid var(--veil)}
+@media(min-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+.cell{background:var(--paper); padding:clamp(22px,3vw,34px); min-width:0}
+.cell .han{font-family:var(--han); font-weight:300; font-size:25px; display:block; margin-bottom:12px}
+.cell h3{font-size:16px; font-weight:500; margin:0 0 8px; letter-spacing:-.01em}
+.cell p{font-size:14px; line-height:1.65; color:var(--ash); margin:0; max-width:46ch}
+
+.brands{display:flex; flex-wrap:wrap; gap:0}
+.brands span{font-size:clamp(14px,2.2vw,22px); font-weight:300; letter-spacing:-.01em; padding:9px 18px 9px 0}
+.brands span:nth-child(even){color:var(--ash)}
+
+.offer{
+  border:1px solid var(--ink); padding:clamp(28px,5vw,56px);
+  display:flex; gap:clamp(20px,4vw,48px); align-items:center;
+  justify-content:space-between; flex-wrap:wrap;
+}
+.offer p{margin:0; font-size:clamp(19px,2.8vw,31px); font-weight:300; max-width:21ch; line-height:1.3; text-wrap:balance}
+.offer .until{font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--ash)}
+
+footer{padding-block:clamp(44px,7vw,78px) 30px}
+.foot{display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap; align-items:baseline}
+.foot small{font-size:11px; color:var(--ash); letter-spacing:.04em}
+
+@media (prefers-reduced-motion: reduce){
+  .cue i{animation:none; transform:scaleX(1)}
+  .scroller{height:auto}
+  .stage{position:static; height:auto; min-height:0; display:block; padding-block:60px; perspective:none}
+  .stage-label{position:static; text-align:left; margin-bottom:34px}
+  .track{position:static; display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
+  .card{position:static; width:auto; margin:0; transform:none !important; opacity:1 !important}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="mast">
+    <div class="mark">유나리 &nbsp;Yunari</div>
+    <nav>
+      <span>Hautanliegen</span><span>Marken</span><span>Routine</span><span>Journal</span>
+    </nav>
+  </header>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <p class="eyebrow">Koreanische Hautpflege · Versand aus der Schweiz</p>
+    <h1 class="hero-han">맑은<br>피부</h1>
+    <div class="hero-sub">
+      <p class="hero-lede">Kuratiert statt kopiert. Vierzehn koreanische Marken, aus einem Lager in der Schweiz geliefert.</p>
+      <div class="hero-meta">
+        <div><b>14</b><span>Marken</span></div>
+        <div><b>57</b><span>Produkte</span></div>
+        <div><b>2–4</b><span>Werktage</span></div>
+      </div>
+    </div>
+    <div class="cue"><i></i> Scrollen</div>
+  </div>
+</div>
+
+<hr class="rule">
+
+<div class="scroller" id="scroller">
+  <div class="stage">
+    <div class="stage-label">
+      <p class="eyebrow">Im Angebot bis 31. Oktober</p>
+      <h2>지금 세일</h2>
+    </div>
+    <div class="track" id="track">
+      <article class="card">
+        <div class="no">01</div>
+        <div class="swatch"><em>오일</em></div>
+        <div class="brand">Beauty of Joseon</div>
+        <h3>Gentle Black Fresh Cleansing Oil</h3>
+        <div class="price"><b>CHF 14.60</b><s>21.50</s></div>
+      </article>
+      <article class="card">
+        <div class="no">02</div>
+        <div class="swatch"><em>에센스</em></div>
+        <div class="brand">COSRX</div>
+        <h3>Advanced Snail 96 Mucin Power Essence</h3>
+        <div class="price"><b>CHF 14.40</b><s>17.50</s></div>
+      </article>
+      <article class="card">
+        <div class="no">03</div>
+        <div class="swatch"><em>토너</em></div>
+        <div class="brand">I'm From</div>
+        <h3>Rice Toner</h3>
+        <div class="price"><b>CHF 21.50</b><s>24.90</s></div>
+      </article>
+      <article class="card">
+        <div class="no">04</div>
+        <div class="swatch"><em>패드</em></div>
+        <div class="brand">Medicube</div>
+        <h3>Zero Pore Pad 2.0</h3>
+        <div class="price"><b>CHF 19.20</b><s>22.00</s></div>
+      </article>
+      <article class="card">
+        <div class="no">05</div>
+        <div class="swatch"><em>패치</em></div>
+        <div class="brand">Mizon</div>
+        <h3>Snail Repair Intensive Gold Eye Patch</h3>
+        <div class="price"><b>CHF 21.00</b><s>24.50</s></div>
+      </article>
+      <article class="card">
+        <div class="no">06</div>
+        <div class="swatch"><em>클렌저</em></div>
+        <div class="brand">COSRX</div>
+        <h3>Low pH Good Morning Cleanser</h3>
+        <div class="price"><b>CHF 11.25</b><s>13.90</s></div>
+      </article>
+    </div>
+  </div>
+</div>
+
+<hr class="rule">
+
+<div class="wrap">
+  <section class="band">
+    <div class="kicker">
+      <p class="eyebrow">Hautanliegen</p>
+      <h2>Wo fängst du an?</h2>
+    </div>
+    <div class="grid">
+      <div class="cell">
+        <span class="han">여드름</span>
+        <h3>Akne &amp; Unreinheiten</h3>
+        <p>19 Produkte. Reinigung, Serum, Pflege. Für Haut, die schnell reagiert und lange braucht, um sich zu beruhigen.</p>
+      </div>
+      <div class="cell">
+        <span class="han">안티에이징</span>
+        <h3>Anti-Aging</h3>
+        <p>17 Produkte mit Retinal, Peptiden und Kollagen. Aufbauend statt aggressiv.</p>
+      </div>
+      <div class="cell">
+        <span class="han">기미</span>
+        <h3>Pigmentflecken</h3>
+        <p>9 Produkte mit Vitamin C, Niacinamid und Alpha-Arbutin. Für dunkle Flecken nach Akne oder Sonne.</p>
+      </div>
+      <div class="cell">
+        <span class="han">광채</span>
+        <h3>Glow</h3>
+        <p>28 Produkte. Essence, Serum, Maske. Weniger Schminke, mehr Feuchtigkeit.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<hr class="rule">
+
+<div class="wrap">
+  <section class="band">
+    <div class="kicker">
+      <p class="eyebrow">Marken</p>
+      <h2>Vierzehn, nicht vierhundert.</h2>
+    </div>
+    <div class="brands">
+      <span>Beauty of Joseon</span><span>COSRX</span><span>Klairs</span><span>Medicube</span>
+      <span>Mizon</span><span>Anua</span><span>Rovectin</span><span>Benton</span>
+      <span>Real Barrier</span><span>I'm From</span><span>Axis-Y</span><span>Neogen</span>
+      <span>SKIN1004</span><span>ONE THING</span>
+    </div>
+  </section>
+</div>
+
+<hr class="rule">
+
+<div class="wrap">
+  <section class="band">
+    <div class="offer">
+      <p>Gratis Versand ab zwei Produkten.</p>
+      <div>
+        <div class="until">Bis 31. Oktober</div>
+        <div class="until" style="margin-top:8px">Lieferung in 2–4 Werktagen · Kein Zoll</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<hr class="rule">
+
+<div class="wrap">
+  <footer>
+    <div class="foot">
+      <div class="mark">유나리 &nbsp;Yunari</div>
+      <small>Konzeptentwurf · Done by Di</small>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var track = document.getElementById('track');
+  var scroller = document.getElementById('scroller');
+  if(!track || !scroller) return;
+  var cards = Array.prototype.slice.call(track.querySelectorAll('.card'));
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var ticking = false;
+
+  function layout(){
+    if(reduce.matches){
+      cards.forEach(function(c){ c.style.transform=''; c.style.opacity=''; });
+      return;
+    }
+    var rect = scroller.getBoundingClientRect();
+    var span = rect.height - window.innerHeight;
+    var p = span > 0 ? (-rect.top) / span : 0;
+    if(p < 0) p = 0;
+    if(p > 1) p = 1;
+
+    var n = cards.length;
+    var spread = Math.min(window.innerWidth * 0.52, 400);
+
+    cards.forEach(function(card, i){
+      var t = (i / (n - 1)) - p;
+      var x = t * spread * 1.9;
+      var z = -520 * Math.abs(t) + 110;
+      var ry = t * 34;
+      var y = Math.sin(t * 2.1) * 34;
+      var op = 1 - Math.min(Math.abs(t) * 0.78, 0.82);
+      card.style.transform =
+        'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,' + z.toFixed(1) + 'px) ' +
+        'rotateY(' + ry.toFixed(2) + 'deg)';
+      card.style.opacity = op.toFixed(3);
+      card.style.zIndex = String(100 - Math.round(Math.abs(t) * 50));
+    });
+  }
+
+  function onScroll(){
+    if(ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function(){ layout(); ticking = false; });
+  }
+
+  layout();
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  if(reduce.addEventListener) reduce.addEventListener('change', layout);
+})();
+</script>
+</body>
+</html>
