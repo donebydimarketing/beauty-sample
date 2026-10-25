@@ -7,161 +7,204 @@
 <meta name="description" content="Konzeptentwurf für yunari.ch. Koreanische Hautpflege, Versand aus der Schweiz.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@300;500;700&display=swap">
+<link rel="preconnect" href="https://cdn.shopify.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Gowun+Batang:wght@400;700&family=Karla:wght@300;400;500&display=swap">
 
 <style>
-/* Layout concept: a single vertical column of ink on paper, interrupted once by a
-   horizontal plane of product cards that rotates through 3D space as you scroll. */
+/* Light only, by choice. A beauty shop should not invert into a black box at night.
+   Layout: warm paper ground, wide air, one celadon thread running through. */
 :root{
-  --paper:#fbfaf8;
-  --ink:#0d0d0c;
-  --ash:#6f6d69;
-  --veil:#e6e3dd;
-  --deep:#ffffff;
-  --shadow:rgba(13,13,12,.10);
-  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
-  --han:"Noto Serif KR",Georgia,serif;
+  --paper:#faf7f2;
+  --mist:#f2ede4;
+  --celadon:#c3d0c6;
+  --celadon-deep:#8aa192;
+  --clay:#e0cdbd;
+  --ink:#2f2b27;
+  --soft:#8d8378;
+  --line:#e4ddd2;
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --han:"Gowun Batang",Georgia,serif;
+  --ui:"Karla","Helvetica Neue",Arial,sans-serif;
   color-scheme:light;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --paper:#0c0c0b; --ink:#f3f1ec; --ash:#8e8b85; --veil:#232321;
-    --deep:#161614; --shadow:rgba(0,0,0,.55); color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --paper:#0c0c0b; --ink:#f3f1ec; --ash:#8e8b85; --veil:#232321;
-  --deep:#161614; --shadow:rgba(0,0,0,.55); color-scheme:dark;
-}
-
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 html,body{margin:0}
-img{max-width:100%}
+img{max-width:100%;display:block}
 body{
   background:var(--paper); color:var(--ink);
-  font-family:var(--display); font-weight:400; font-size:14px;
+  font-family:var(--ui); font-weight:300; font-size:15px; line-height:1.6;
   -webkit-font-smoothing:antialiased; overflow-x:hidden;
 }
 .wrap{
-  max-width:1180px; margin:0 auto;
-  padding-left:max(16px,env(safe-area-inset-left,0px));
-  padding-right:max(16px,env(safe-area-inset-right,0px));
+  max-width:1200px; margin:0 auto;
+  padding-left:max(20px,env(safe-area-inset-left,0px));
+  padding-right:max(20px,env(safe-area-inset-right,0px));
 }
 .eyebrow{
-  font-size:10px; font-weight:500; letter-spacing:.34em; text-transform:uppercase;
-  color:var(--ash);
+  font-size:10px; font-weight:500; letter-spacing:.38em; text-transform:uppercase;
+  color:var(--celadon-deep); margin:0;
 }
-.rule{height:1px; background:var(--veil); border:0; margin:0}
+hr.rule{height:1px;background:var(--line);border:0;margin:0}
+
+/* reveal: visible by default, JS only adds the motion */
+.rv{opacity:1;transform:none}
+.js .rv{opacity:0; transform:translateY(26px); transition:opacity .9s cubic-bezier(.22,.61,.36,1), transform .9s cubic-bezier(.22,.61,.36,1)}
+.js .rv.in{opacity:1; transform:none}
+.js .rv.d1{transition-delay:.09s}.js .rv.d2{transition-delay:.18s}
+.js .rv.d3{transition-delay:.27s}.js .rv.d4{transition-delay:.36s}
 
 /* ---------- masthead ---------- */
-.mast{
-  display:flex; align-items:baseline; justify-content:space-between;
-  gap:16px; flex-wrap:wrap; padding-block:22px 0;
-}
-.mark{font-family:var(--han); font-weight:500; font-size:19px; letter-spacing:.06em}
-.mast nav{display:flex; gap:22px; flex-wrap:wrap}
-.mast nav span{font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--ash)}
+.mast{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding-block:24px}
+.logo{font-family:var(--han);font-size:21px;letter-spacing:.08em}
+.logo small{font-family:var(--serif);font-size:17px;letter-spacing:.3em;margin-left:9px;color:var(--soft)}
+.mast nav{display:flex;gap:26px;flex-wrap:wrap}
+.mast nav a{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);text-decoration:none}
+.mast nav a:hover{color:var(--ink)}
 
 /* ---------- hero ---------- */
-.hero{padding-block:clamp(44px,9vw,104px) clamp(40px,7vw,80px)}
-.hero-han{
-  font-family:var(--han); font-weight:300;
-  font-size:clamp(66px,19vw,204px); line-height:.82;
-  letter-spacing:-.02em; margin:0;
+.hero{display:grid;gap:clamp(30px,5vw,62px);align-items:center;padding-block:clamp(34px,6vw,72px) clamp(50px,8vw,96px)}
+@media(min-width:880px){.hero{grid-template-columns:1.05fr .95fr}}
+.hero h1{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(46px,7.4vw,92px);line-height:1.02;letter-spacing:-.015em;
+  margin:18px 0 0;text-wrap:balance;
 }
-.hero-sub{
-  display:flex; justify-content:space-between; align-items:flex-end;
-  gap:28px; flex-wrap:wrap; margin-top:clamp(22px,4vw,40px);
+.hero h1 em{font-style:italic;color:var(--celadon-deep)}
+.hero .han{font-family:var(--han);font-size:clamp(19px,2.4vw,27px);color:var(--soft);margin:14px 0 0}
+.hero p.lede{font-size:16px;line-height:1.75;color:var(--soft);max-width:40ch;margin:22px 0 0}
+.hero-stats{display:flex;gap:clamp(22px,4vw,46px);margin-top:34px;flex-wrap:wrap}
+.hero-stats b{display:block;font-family:var(--serif);font-size:34px;font-weight:300;font-variant-numeric:tabular-nums;line-height:1}
+.hero-stats span{display:block;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--soft);margin-top:7px}
+.hero-art{position:relative}
+.hero-art .halo{
+  position:absolute;inset:-6% -4% -10%;border-radius:50%;
+  background:radial-gradient(circle at 50% 45%, var(--mist) 0%, rgba(242,237,228,0) 68%);
 }
-.hero-lede{
-  font-size:clamp(17px,2.1vw,23px); font-weight:300; line-height:1.5;
-  max-width:33ch; margin:0; text-wrap:balance;
-}
-.hero-meta{display:flex; gap:clamp(20px,4vw,52px); flex-wrap:wrap}
-.hero-meta div{min-width:0}
-.hero-meta b{display:block; font-size:clamp(22px,3vw,34px); font-weight:300; font-variant-numeric:tabular-nums}
-.hero-meta span{display:block; font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--ash); margin-top:5px}
+.hero-art img{position:relative;width:100%;aspect-ratio:4/5;object-fit:contain;will-change:transform}
 
-.cue{
-  display:flex; align-items:center; gap:11px;
-  font-size:10px; letter-spacing:.26em; text-transform:uppercase; color:var(--ash);
-  padding-block:26px 0;
+/* ---------- marquee ---------- */
+.strip{background:var(--mist);overflow:hidden;padding-block:17px;border-block:1px solid var(--line)}
+.marquee{display:flex;gap:0;width:max-content;animation:drift 42s linear infinite}
+.marquee span{
+  font-family:var(--serif);font-size:clamp(17px,2.4vw,25px);font-weight:300;
+  padding:0 30px;color:var(--ink);white-space:nowrap;
 }
-.cue i{display:block; width:46px; height:1px; background:var(--ash); transform-origin:left;
-  animation:slide 2.6s ease-in-out infinite}
-@keyframes slide{0%,100%{transform:scaleX(.3)}50%{transform:scaleX(1)}}
+.marquee span::after{content:"·";margin-left:30px;color:var(--celadon-deep)}
+@keyframes drift{to{transform:translateX(-50%)}}
 
-/* ---------- 3D stage ---------- */
-.scroller{position:relative; height:420vh}
+/* ---------- 3D sale plane ---------- */
+.scroller{position:relative;height:440vh;background:var(--paper)}
 .stage{
-  position:sticky; top:0; height:100vh; min-height:540px;
-  display:grid; place-items:center; overflow:hidden;
-  perspective:1150px; perspective-origin:50% 48%;
+  position:sticky;top:0;height:100vh;min-height:560px;overflow:hidden;
+  perspective:1250px;perspective-origin:50% 46%;
 }
-.stage-label{
-  position:absolute; top:clamp(22px,7vh,56px); left:0; right:0;
-  text-align:center; z-index:3; pointer-events:none;
+.stage::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 42%, var(--mist) 0%, rgba(242,237,228,0) 62%);
 }
-.stage-label h2{
-  font-family:var(--han); font-weight:300;
-  font-size:clamp(28px,5.4vw,62px); margin:8px 0 0; line-height:1.05;
-}
-.track{position:absolute; inset:0; transform-style:preserve-3d}
+.stage-head{position:absolute;top:clamp(26px,8vh,64px);left:0;right:0;text-align:center;z-index:4;pointer-events:none;padding-inline:20px}
+.stage-head h2{font-family:var(--serif);font-weight:300;font-size:clamp(32px,5.6vw,64px);margin:10px 0 0;line-height:1.05}
+.stage-head .han{font-family:var(--han);font-size:14px;color:var(--soft);margin-top:9px}
+.track{position:absolute;inset:0;transform-style:preserve-3d}
 .card{
-  position:absolute; top:50%; left:50%;
-  width:min(250px,62vw); margin:-170px 0 0 calc(min(250px,62vw) / -2);
-  background:var(--deep); border:1px solid var(--veil);
-  box-shadow:0 26px 60px -22px var(--shadow);
-  padding:20px 20px 22px; transform-style:preserve-3d; will-change:transform;
+  position:absolute;top:50%;left:50%;
+  width:min(260px,64vw);margin:-196px 0 0 calc(min(260px,64vw) / -2);
+  background:#fff;border:1px solid var(--line);border-radius:2px;
+  box-shadow:0 30px 70px -26px rgba(47,43,39,.22);
+  padding:16px 16px 20px;will-change:transform;
 }
-.card .no{font-size:10px; letter-spacing:.22em; color:var(--ash); font-variant-numeric:tabular-nums}
-.card .swatch{
-  height:132px; margin:14px 0 16px; border:1px solid var(--veil);
-  background:repeating-linear-gradient(135deg,transparent 0 9px,var(--veil) 9px 10px);
-  display:grid; place-items:center;
+.card figure{margin:0;background:var(--mist);border-radius:1px}
+.card img{width:100%;aspect-ratio:1/1;object-fit:contain;padding:12px}
+.card .brand{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--celadon-deep);margin-top:15px}
+.card h3{font-family:var(--serif);font-size:19px;font-weight:400;line-height:1.2;margin:6px 0 0}
+.card .price{display:flex;align-items:baseline;gap:9px;margin-top:11px;font-variant-numeric:tabular-nums}
+.card .price b{font-size:16px;font-weight:500}
+.card .price s{font-size:12px;color:var(--soft)}
+
+/* ---------- generic band ---------- */
+section.band{padding-block:clamp(66px,10vw,128px)}
+.band-head{max-width:46ch;margin-bottom:clamp(32px,5vw,58px)}
+.band-head h2{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4.6vw,54px);line-height:1.1;margin:12px 0 0;text-wrap:balance}
+.band-head p{color:var(--soft);margin:16px 0 0;max-width:42ch}
+
+/* concerns */
+.concerns{display:grid;gap:clamp(14px,2vw,22px)}
+@media(min-width:640px){.concerns{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.concerns{grid-template-columns:repeat(4,1fr)}}
+.concern{
+  background:var(--mist);border:1px solid var(--line);border-radius:2px;
+  padding:clamp(22px,2.6vw,30px);min-width:0;
+  transition:transform .5s cubic-bezier(.22,.61,.36,1), background .5s;
 }
-.card .swatch em{font-family:var(--han); font-style:normal; font-size:30px; font-weight:300; opacity:.5}
-.card h3{font-size:14px; font-weight:500; line-height:1.3; margin:0 0 4px; letter-spacing:-.01em}
-.card .brand{font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--ash)}
-.card .price{display:flex; align-items:baseline; gap:9px; margin-top:13px; font-variant-numeric:tabular-nums}
-.card .price b{font-size:17px; font-weight:500}
-.card .price s{font-size:12px; color:var(--ash)}
+.concern:hover{transform:translateY(-7px);background:#fff}
+.concern .han{font-family:var(--han);font-size:30px;color:var(--celadon-deep);line-height:1}
+.concern h3{font-family:var(--serif);font-size:23px;font-weight:400;margin:16px 0 0}
+.concern .count{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--soft);margin-top:7px}
+.concern p{font-size:14px;color:var(--soft);margin:13px 0 0}
 
-/* ---------- plain sections ---------- */
-section.band{padding-block:clamp(62px,10vw,120px)}
-.kicker{display:flex; align-items:baseline; gap:16px; margin-bottom:clamp(26px,4vw,46px); flex-wrap:wrap}
-.kicker h2{font-size:clamp(25px,4vw,44px); font-weight:300; letter-spacing:-.02em; margin:0; text-wrap:balance}
+/* parallax band */
+.plate{position:relative;height:clamp(300px,52vw,520px);overflow:hidden;background:var(--mist)}
+.plate img{
+  position:absolute;left:50%;top:50%;width:min(420px,62vw);
+  transform:translate(-50%,-50%);object-fit:contain;will-change:transform;
+}
+.plate .quote{
+  position:absolute;inset:auto 0 clamp(26px,5vw,56px);text-align:center;
+  font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:clamp(20px,3.2vw,38px);color:var(--ink);padding-inline:24px;
+}
 
-.grid{display:grid; gap:1px; background:var(--veil); border:1px solid var(--veil)}
-@media(min-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
-.cell{background:var(--paper); padding:clamp(22px,3vw,34px); min-width:0}
-.cell .han{font-family:var(--han); font-weight:300; font-size:25px; display:block; margin-bottom:12px}
-.cell h3{font-size:16px; font-weight:500; margin:0 0 8px; letter-spacing:-.01em}
-.cell p{font-size:14px; line-height:1.65; color:var(--ash); margin:0; max-width:46ch}
+/* ritual */
+.ritual{display:grid;gap:0}
+.step{
+  display:grid;gap:clamp(16px,3vw,38px);align-items:center;
+  padding-block:clamp(26px,4vw,46px);border-top:1px solid var(--line);
+}
+@media(min-width:760px){.step{grid-template-columns:72px 128px 1fr auto}}
+.step:last-child{border-bottom:1px solid var(--line)}
+.step .idx{font-family:var(--serif);font-size:34px;font-weight:300;color:var(--celadon-deep);line-height:1}
+.step figure{margin:0;background:var(--mist);border-radius:2px;width:128px}
+.step img{width:100%;aspect-ratio:1/1;object-fit:contain;padding:12px}
+.step .copy{min-width:0}
+.step h3{font-family:var(--serif);font-size:25px;font-weight:400;margin:0}
+.step .han{font-family:var(--han);font-size:13px;color:var(--celadon-deep);margin-top:4px}
+.step p{font-size:14px;color:var(--soft);margin:9px 0 0;max-width:44ch}
+.step .who{font-size:13px;color:var(--soft);white-space:nowrap;font-variant-numeric:tabular-nums}
 
-.brands{display:flex; flex-wrap:wrap; gap:0}
-.brands span{font-size:clamp(14px,2.2vw,22px); font-weight:300; letter-spacing:-.01em; padding:9px 18px 9px 0}
-.brands span:nth-child(even){color:var(--ash)}
+/* trust */
+.trust{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:2px;overflow:hidden}
+@media(min-width:720px){.trust{grid-template-columns:repeat(3,1fr)}}
+.trust div{background:var(--paper);padding:clamp(26px,3.4vw,40px);text-align:center}
+.trust .han{font-family:var(--han);font-size:25px;color:var(--celadon-deep)}
+.trust h4{font-family:var(--serif);font-size:21px;font-weight:400;margin:13px 0 0}
+.trust p{font-size:13px;color:var(--soft);margin:8px 0 0}
 
+/* offer */
 .offer{
-  border:1px solid var(--ink); padding:clamp(28px,5vw,56px);
-  display:flex; gap:clamp(20px,4vw,48px); align-items:center;
-  justify-content:space-between; flex-wrap:wrap;
+  background:var(--celadon);border-radius:2px;
+  padding:clamp(34px,6vw,72px);text-align:center;
 }
-.offer p{margin:0; font-size:clamp(19px,2.8vw,31px); font-weight:300; max-width:21ch; line-height:1.3; text-wrap:balance}
-.offer .until{font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--ash)}
+.offer h2{font-family:var(--serif);font-weight:300;font-size:clamp(28px,4.6vw,52px);margin:14px 0 0;line-height:1.12;text-wrap:balance}
+.offer .han{font-family:var(--han);font-size:15px;color:#4e6354;margin-top:12px}
+.offer .meta{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#4e6354;margin-top:22px}
 
-footer{padding-block:clamp(44px,7vw,78px) 30px}
-.foot{display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap; align-items:baseline}
-.foot small{font-size:11px; color:var(--ash); letter-spacing:.04em}
+footer{padding-block:clamp(48px,7vw,86px) 34px}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:baseline}
+.foot small{font-size:11px;color:var(--soft);letter-spacing:.06em}
 
 @media (prefers-reduced-motion: reduce){
-  .cue i{animation:none; transform:scaleX(1)}
+  html{scroll-behavior:auto}
+  .marquee{animation:none}
+  .js .rv{opacity:1;transform:none;transition:none}
   .scroller{height:auto}
-  .stage{position:static; height:auto; min-height:0; display:block; padding-block:60px; perspective:none}
-  .stage-label{position:static; text-align:left; margin-bottom:34px}
-  .track{position:static; display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
-  .card{position:static; width:auto; margin:0; transform:none !important; opacity:1 !important}
+  .stage{position:static;height:auto;min-height:0;padding-block:60px;perspective:none}
+  .stage::before{display:none}
+  .stage-head{position:static;text-align:left;margin-bottom:34px}
+  .track{position:static;display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .card{position:static;width:auto;margin:0;transform:none!important;opacity:1!important}
+  .hero-art img,.plate img{transform:translate(-50%,-50%)!important}
+  .hero-art img{transform:none!important}
 }
 </style>
 </head>
@@ -169,76 +212,84 @@ footer{padding-block:clamp(44px,7vw,78px) 30px}
 
 <div class="wrap">
   <header class="mast">
-    <div class="mark">유나리 &nbsp;Yunari</div>
+    <div class="logo">유나리<small>YUNARI</small></div>
     <nav>
-      <span>Hautanliegen</span><span>Marken</span><span>Routine</span><span>Journal</span>
+      <a href="#anliegen">Hautanliegen</a>
+      <a href="#marken">Marken</a>
+      <a href="#ritual">Routine</a>
+      <a href="#versand">Versand</a>
     </nav>
   </header>
 </div>
 
 <div class="wrap">
-  <div class="hero">
-    <p class="eyebrow">Koreanische Hautpflege · Versand aus der Schweiz</p>
-    <h1 class="hero-han">맑은<br>피부</h1>
-    <div class="hero-sub">
-      <p class="hero-lede">Kuratiert statt kopiert. Vierzehn koreanische Marken, aus einem Lager in der Schweiz geliefert.</p>
-      <div class="hero-meta">
+  <section class="hero">
+    <div>
+      <p class="eyebrow rv">Koreanische Hautpflege</p>
+      <h1 class="rv d1">Ruhe für die Haut,<br><em>aus der Schweiz</em></h1>
+      <p class="han rv d2">맑은 피부, 조용한 루틴</p>
+      <p class="lede rv d2">Vierzehn koreanische Marken, von Hand ausgewählt und aus einem Lager in der Schweiz geliefert. Kein Zoll, keine Wartezeit.</p>
+      <div class="hero-stats rv d3">
         <div><b>14</b><span>Marken</span></div>
         <div><b>57</b><span>Produkte</span></div>
         <div><b>2–4</b><span>Werktage</span></div>
       </div>
     </div>
-    <div class="cue"><i></i> Scrollen</div>
+    <div class="hero-art rv d2">
+      <div class="halo"></div>
+      <img id="heroImg" alt="Beauty of Joseon Dynasty Cream"
+        src="https://cdn.shopify.com/s/files/1/1024/3725/7555/files/beauty-of-joseon-crema-facial-hidratante-dynasty-cream-50ml-4-85918.jpg?v=1775591143&width=900">
+    </div>
+  </section>
+</div>
+
+<div class="strip" id="marken">
+  <div class="marquee" aria-label="Marken">
+    <span>Beauty of Joseon</span><span>COSRX</span><span>Klairs</span><span>Medicube</span><span>Mizon</span><span>Anua</span><span>Rovectin</span><span>Benton</span><span>Real Barrier</span><span>I'm From</span><span>Axis-Y</span><span>Neogen</span><span>SKIN1004</span><span>ONE THING</span>
+    <span>Beauty of Joseon</span><span>COSRX</span><span>Klairs</span><span>Medicube</span><span>Mizon</span><span>Anua</span><span>Rovectin</span><span>Benton</span><span>Real Barrier</span><span>I'm From</span><span>Axis-Y</span><span>Neogen</span><span>SKIN1004</span><span>ONE THING</span>
   </div>
 </div>
 
-<hr class="rule">
-
 <div class="scroller" id="scroller">
   <div class="stage">
-    <div class="stage-label">
-      <p class="eyebrow">Im Angebot bis 31. Oktober</p>
-      <h2>지금 세일</h2>
+    <div class="stage-head">
+      <p class="eyebrow">Bis 31. Oktober reduziert</p>
+      <h2>Zehn Produkte im Angebot</h2>
+      <p class="han">지금 세일 중</p>
     </div>
     <div class="track" id="track">
       <article class="card">
-        <div class="no">01</div>
-        <div class="swatch"><em>오일</em></div>
-        <div class="brand">Beauty of Joseon</div>
+        <figure><img alt="Gentle Black Fresh Cleansing Oil" loading="lazy" src="https://cdn.shopify.com/s/files/1/1024/3725/7555/files/8809572890994_1.jpg?v=1772696198&width=500"></figure>
+        <div class="brand">Klairs</div>
         <h3>Gentle Black Fresh Cleansing Oil</h3>
         <div class="price"><b>CHF 14.60</b><s>21.50</s></div>
       </article>
       <article class="card">
-        <div class="no">02</div>
-        <div class="swatch"><em>에센스</em></div>
+        <figure><img alt="Advanced Snail 96 Mucin Power Essence" loading="lazy" src="https://cdn.shopify.com/s/files/1/1024/3725/7555/files/8809416470009_1.jpg?v=1772697226&width=500"></figure>
         <div class="brand">COSRX</div>
-        <h3>Advanced Snail 96 Mucin Power Essence</h3>
+        <h3>Advanced Snail 96 Mucin Essence</h3>
         <div class="price"><b>CHF 14.40</b><s>17.50</s></div>
       </article>
       <article class="card">
-        <div class="no">03</div>
-        <div class="swatch"><em>토너</em></div>
+        <figure><img alt="Rice Toner" loading="lazy" src="https://cdn.shopify.com/s/files/1/1024/3725/7555/files/8809581074767_1.jpg?v=1771962640&width=500"></figure>
         <div class="brand">I'm From</div>
         <h3>Rice Toner</h3>
         <div class="price"><b>CHF 21.50</b><s>24.90</s></div>
       </article>
       <article class="card">
-        <div class="no">04</div>
-        <div class="swatch"><em>패드</em></div>
+        <figure><img alt="Zero Pore Pad 2.0" loading="lazy" src="https://cdn.shopify.com/s/files/1/1024/3725/7555/files/8800256119066_1.jpg?v=1772697556&width=500"></figure>
         <div class="brand">Medicube</div>
         <h3>Zero Pore Pad 2.0</h3>
         <div class="price"><b>CHF 19.20</b><s>22.00</s></div>
       </article>
       <article class="card">
-        <div class="no">05</div>
-        <div class="swatch"><em>패치</em></div>
+        <figure><img alt="Snail Repair Intensive Gold Eye Patch" loading="lazy" src="https://cdn.shopify.com/s/files/1/1024/3725/7555/files/8809587521807_1.jpg?v=1772701221&width=500"></figure>
         <div class="brand">Mizon</div>
-        <h3>Snail Repair Intensive Gold Eye Patch</h3>
+        <h3>Snail Repair Gold Eye Patch</h3>
         <div class="price"><b>CHF 21.00</b><s>24.50</s></div>
       </article>
       <article class="card">
-        <div class="no">06</div>
-        <div class="swatch"><em>클렌저</em></div>
+        <figure><img alt="Low pH Good Morning Cleanser" loading="lazy" src="https://cdn.shopify.com/s/files/1/1024/3725/7555/files/8809416470511_1.jpg?v=1771166540&width=500"></figure>
         <div class="brand">COSRX</div>
         <h3>Low pH Good Morning Cleanser</h3>
         <div class="price"><b>CHF 11.25</b><s>13.90</s></div>
@@ -247,66 +298,129 @@ footer{padding-block:clamp(44px,7vw,78px) 30px}
   </div>
 </div>
 
-<hr class="rule">
-
-<div class="wrap">
+<div class="wrap" id="anliegen">
   <section class="band">
-    <div class="kicker">
-      <p class="eyebrow">Hautanliegen</p>
-      <h2>Wo fängst du an?</h2>
+    <div class="band-head">
+      <p class="eyebrow rv">Hautanliegen</p>
+      <h2 class="rv d1">Wo fängst du an?</h2>
+      <p class="rv d2">Jede Sammlung ist nach einem Anliegen sortiert, nicht nach Produkttyp. Du suchst eine Lösung, kein Regal.</p>
     </div>
-    <div class="grid">
-      <div class="cell">
-        <span class="han">여드름</span>
+    <div class="concerns">
+      <article class="concern rv">
+        <div class="han">여드름</div>
         <h3>Akne &amp; Unreinheiten</h3>
-        <p>19 Produkte. Reinigung, Serum, Pflege. Für Haut, die schnell reagiert und lange braucht, um sich zu beruhigen.</p>
-      </div>
-      <div class="cell">
-        <span class="han">안티에이징</span>
+        <div class="count">19 Produkte</div>
+        <p>Reinigung, Serum, Pflege. Für Haut, die schnell reagiert und lange braucht, um sich zu beruhigen.</p>
+      </article>
+      <article class="concern rv d1">
+        <div class="han">안티에이징</div>
         <h3>Anti-Aging</h3>
-        <p>17 Produkte mit Retinal, Peptiden und Kollagen. Aufbauend statt aggressiv.</p>
-      </div>
-      <div class="cell">
-        <span class="han">기미</span>
+        <div class="count">17 Produkte</div>
+        <p>Retinal, Peptide und Kollagen. Aufbauend statt aggressiv.</p>
+      </article>
+      <article class="concern rv d2">
+        <div class="han">기미</div>
         <h3>Pigmentflecken</h3>
-        <p>9 Produkte mit Vitamin C, Niacinamid und Alpha-Arbutin. Für dunkle Flecken nach Akne oder Sonne.</p>
-      </div>
-      <div class="cell">
-        <span class="han">광채</span>
+        <div class="count">9 Produkte</div>
+        <p>Vitamin C, Niacinamid und Alpha-Arbutin. Für dunkle Flecken nach Akne oder Sonne.</p>
+      </article>
+      <article class="concern rv d3">
+        <div class="han">광채</div>
         <h3>Glow</h3>
-        <p>28 Produkte. Essence, Serum, Maske. Weniger Schminke, mehr Feuchtigkeit.</p>
+        <div class="count">28 Produkte</div>
+        <p>Essence, Serum, Maske. Weniger Schminke, mehr Feuchtigkeit.</p>
+      </article>
+    </div>
+  </section>
+</div>
+
+<div class="plate" id="plate">
+  <img id="plateImg" alt="Collagen Night Wrapping Mask" loading="lazy"
+    src="https://cdn.shopify.com/s/files/1/1024/3725/7555/files/8800256118984_1.jpg?v=1773443057&width=800">
+  <p class="quote">Kuratiert statt kopiert.</p>
+</div>
+
+<div class="wrap" id="ritual">
+  <section class="band">
+    <div class="band-head">
+      <p class="eyebrow rv">Routine</p>
+      <h2 class="rv d1">Vier Schritte am Morgen</h2>
+      <p class="rv d2">Eine koreanische Routine ist eine Reihenfolge, keine Sammlung. Hier die kürzeste, die funktioniert.</p>
+    </div>
+    <div class="ritual">
+      <div class="step rv">
+        <div class="idx">01</div>
+        <figure><img alt="Low pH Good Morning Cleanser" loading="lazy" src="https://cdn.shopify.com/s/files/1/1024/3725/7555/files/8809416470511_1.jpg?v=1771166540&width=360"></figure>
+        <div class="copy">
+          <h3>Reinigen</h3>
+          <div class="han">클렌징</div>
+          <p>Ein milder Reiniger mit niedrigem pH-Wert. Nimmt die Nacht ab, ohne die Barriere zu stören.</p>
+        </div>
+        <div class="who">COSRX · CHF 11.25</div>
+      </div>
+      <div class="step rv d1">
+        <div class="idx">02</div>
+        <figure><img alt="Rice Toner" loading="lazy" src="https://cdn.shopify.com/s/files/1/1024/3725/7555/files/8809581074767_1.jpg?v=1771962640&width=360"></figure>
+        <div class="copy">
+          <h3>Tonen</h3>
+          <div class="han">토너</div>
+          <p>Reiswasser als erste Schicht Feuchtigkeit. Auf die noch feuchte Haut klopfen.</p>
+        </div>
+        <div class="who">I'm From · CHF 21.50</div>
+      </div>
+      <div class="step rv d2">
+        <div class="idx">03</div>
+        <figure><img alt="Advanced Snail 96 Mucin Power Essence" loading="lazy" src="https://cdn.shopify.com/s/files/1/1024/3725/7555/files/8809416470009_1.jpg?v=1772697226&width=360"></figure>
+        <div class="copy">
+          <h3>Essence</h3>
+          <div class="han">에센스</div>
+          <p>96 Prozent Schneckensekret. Der Schritt, den die meisten auslassen und danach vermissen.</p>
+        </div>
+        <div class="who">COSRX · CHF 14.40</div>
+      </div>
+      <div class="step rv d3">
+        <div class="idx">04</div>
+        <figure><img alt="Inout Daily Soothing Sunscreen SPF50+" loading="lazy" src="https://cdn.shopify.com/s/files/1/1024/3725/7555/files/8809663756703_1.jpg?v=1771965540&width=360"></figure>
+        <div class="copy">
+          <h3>Schützen</h3>
+          <div class="han">선크림</div>
+          <p>SPF50+ PA++++, leicht und ohne weissen Film. Jeden Tag, auch im Winter.</p>
+        </div>
+        <div class="who">Mizon · CHF 15.50</div>
       </div>
     </div>
   </section>
 </div>
 
-<hr class="rule">
-
-<div class="wrap">
+<div class="wrap" id="versand">
   <section class="band">
-    <div class="kicker">
-      <p class="eyebrow">Marken</p>
-      <h2>Vierzehn, nicht vierhundert.</h2>
-    </div>
-    <div class="brands">
-      <span>Beauty of Joseon</span><span>COSRX</span><span>Klairs</span><span>Medicube</span>
-      <span>Mizon</span><span>Anua</span><span>Rovectin</span><span>Benton</span>
-      <span>Real Barrier</span><span>I'm From</span><span>Axis-Y</span><span>Neogen</span>
-      <span>SKIN1004</span><span>ONE THING</span>
+    <div class="trust">
+      <div class="rv">
+        <div class="han">스위스</div>
+        <h4>Aus der Schweiz</h4>
+        <p>Eigenes Lager. Kein Zoll, keine Wartezeit aus Korea.</p>
+      </div>
+      <div class="rv d1">
+        <div class="han">배송</div>
+        <h4>2 bis 4 Werktage</h4>
+        <p>In der ganzen Schweiz und in Liechtenstein.</p>
+      </div>
+      <div class="rv d2">
+        <div class="han">정품</div>
+        <h4>Von uns getestet</h4>
+        <p>Vierzehn Marken, von Hand ausgewählt. Keine Massenware.</p>
+      </div>
     </div>
   </section>
 </div>
 
-<hr class="rule">
-
 <div class="wrap">
-  <section class="band">
-    <div class="offer">
-      <p>Gratis Versand ab zwei Produkten.</p>
-      <div>
-        <div class="until">Bis 31. Oktober</div>
-        <div class="until" style="margin-top:8px">Lieferung in 2–4 Werktagen · Kein Zoll</div>
-      </div>
+  <section class="band" style="padding-top:0">
+    <div class="offer rv">
+      <p class="eyebrow" style="color:#4e6354">Bis 31. Oktober</p>
+      <h2>Gratis Versand ab zwei Produkten</h2>
+      <p class="han">두 개 이상 구매 시 무료 배송</p>
+      <div class="meta">Lieferung in 2–4 Werktagen · Kein Zoll</div>
     </div>
   </section>
 </div>
@@ -316,60 +430,89 @@ footer{padding-block:clamp(44px,7vw,78px) 30px}
 <div class="wrap">
   <footer>
     <div class="foot">
-      <div class="mark">유나리 &nbsp;Yunari</div>
+      <div class="logo">유나리<small>YUNARI</small></div>
       <small>Konzeptentwurf · Done by Di</small>
     </div>
   </footer>
 </div>
 
 <script>
+document.documentElement.className += ' js';
 (function(){
-  var track = document.getElementById('track');
-  var scroller = document.getElementById('scroller');
-  if(!track || !scroller) return;
-  var cards = Array.prototype.slice.call(track.querySelectorAll('.card'));
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* ---- scroll reveal ---- */
+  var rv = Array.prototype.slice.call(document.querySelectorAll('.rv'));
+  if('IntersectionObserver' in window && !reduce.matches){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    },{rootMargin:'0px 0px -12% 0px', threshold:.1});
+    rv.forEach(function(el){ io.observe(el); });
+  } else {
+    rv.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ---- 3D sale plane + parallax ---- */
+  var scroller = document.getElementById('scroller');
+  var track = document.getElementById('track');
+  var cards = track ? Array.prototype.slice.call(track.querySelectorAll('.card')) : [];
+  var heroImg = document.getElementById('heroImg');
+  var plate = document.getElementById('plate');
+  var plateImg = document.getElementById('plateImg');
   var ticking = false;
 
-  function layout(){
-    if(reduce.matches){
-      cards.forEach(function(c){ c.style.transform=''; c.style.opacity=''; });
-      return;
+  function frame(){
+    if(reduce.matches) return;
+
+    if(scroller && cards.length){
+      var r = scroller.getBoundingClientRect();
+      var span = r.height - window.innerHeight;
+      var p = span > 0 ? (-r.top) / span : 0;
+      p = p < 0 ? 0 : (p > 1 ? 1 : p);
+      var n = cards.length;
+      var spread = Math.min(window.innerWidth * 0.5, 390);
+      for(var i=0;i<n;i++){
+        var t = (i/(n-1)) - p;
+        var x = t * spread * 1.95;
+        var z = -560 * Math.abs(t) + 120;
+        var ry = t * 30;
+        var y = Math.sin(t * 2.0) * 32;
+        var op = 1 - Math.min(Math.abs(t) * .8, .85);
+        var c = cards[i];
+        c.style.transform = 'translate3d('+x.toFixed(1)+'px,'+y.toFixed(1)+'px,'+z.toFixed(1)+'px) rotateY('+ry.toFixed(2)+'deg)';
+        c.style.opacity = op.toFixed(3);
+        c.style.zIndex = String(100 - Math.round(Math.abs(t)*50));
+      }
     }
-    var rect = scroller.getBoundingClientRect();
-    var span = rect.height - window.innerHeight;
-    var p = span > 0 ? (-rect.top) / span : 0;
-    if(p < 0) p = 0;
-    if(p > 1) p = 1;
 
-    var n = cards.length;
-    var spread = Math.min(window.innerWidth * 0.52, 400);
+    if(heroImg){
+      var hr = heroImg.getBoundingClientRect();
+      if(hr.bottom > 0 && hr.top < window.innerHeight){
+        var hp = (window.innerHeight/2 - (hr.top + hr.height/2)) / window.innerHeight;
+        heroImg.style.transform = 'translateY('+(hp*26).toFixed(1)+'px)';
+      }
+    }
 
-    cards.forEach(function(card, i){
-      var t = (i / (n - 1)) - p;
-      var x = t * spread * 1.9;
-      var z = -520 * Math.abs(t) + 110;
-      var ry = t * 34;
-      var y = Math.sin(t * 2.1) * 34;
-      var op = 1 - Math.min(Math.abs(t) * 0.78, 0.82);
-      card.style.transform =
-        'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,' + z.toFixed(1) + 'px) ' +
-        'rotateY(' + ry.toFixed(2) + 'deg)';
-      card.style.opacity = op.toFixed(3);
-      card.style.zIndex = String(100 - Math.round(Math.abs(t) * 50));
-    });
+    if(plate && plateImg){
+      var pr = plate.getBoundingClientRect();
+      if(pr.bottom > 0 && pr.top < window.innerHeight){
+        var pp = (window.innerHeight/2 - (pr.top + pr.height/2)) / window.innerHeight;
+        plateImg.style.transform = 'translate(-50%,calc(-50% + '+(pp*54).toFixed(1)+'px)) scale('+(1 + Math.abs(pp)*0.04).toFixed(3)+')';
+      }
+    }
   }
 
   function onScroll(){
     if(ticking) return;
     ticking = true;
-    window.requestAnimationFrame(function(){ layout(); ticking = false; });
+    window.requestAnimationFrame(function(){ frame(); ticking = false; });
   }
 
-  layout();
+  frame();
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', onScroll);
-  if(reduce.addEventListener) reduce.addEventListener('change', layout);
 })();
 </script>
 </body>
